@@ -1,29 +1,32 @@
-def f(P, B, H, W, CASE_LIST):
-    RESULTS = []
-    for S_i in CASE_LIST[1]:
-        if S_i >= P and S_i * CASE_LIST[0] <= B:
-            RESULTS.append(S_i * CASE_LIST[0])
-    if len(RESULTS) == 0:
-        return "stay home"
-    else:
-        return min(RESULTS)
+def f(price, weeks, N, B):
+    result = None
+    if B  >= price * N:
+        for k in weeks:
+            if k >= N:
+                result = price * N
+                break
+    return result
+
 
 # read input file from stdin
-import fileinput
-answers = []
-cont = 0
-for line in fileinput.input():
-    if cont == 0:
-        [P, B, H, W] = [int(x) for x in line.split()]
-    elif cont == 1:
-        price = int(line)
-    elif cont == 2:
-        hotels = [int(x) for x in line().split()]
-        CASE_LIST =[price, hotels]
-    cont += 1
-    cont 0
-    answers.append(f(P, B, H, W, CASE_LIST))
+import sys
 
+answers = []
+for line in sys.stdin:
+#    print("line: ", line)
+    [N, B, H, W] = [int(x) for x in line.split()]
+    temp_answers = []
+    for k in range(H):
+        precio = int(input())
+        available_beds = [int(x) for x in input().split()]
+        result = f(precio, available_beds, N, B)
+        if result is not None:
+            temp_answers.append(result)
+    if len(temp_answers) > 0:
+        resultado = min(temp_answers)
+    else:
+        resultado = "stay home"
+    answers.append(resultado)
 
 # write output to stdout
 for answer in answers:
