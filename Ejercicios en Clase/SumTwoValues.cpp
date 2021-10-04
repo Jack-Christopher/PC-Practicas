@@ -1,36 +1,46 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map>
+
 
 void SumOfNumbers(std::vector<int> numbers, int target)
 {
-    int start = 0, end = numbers.size() - 1;
-    while (start < end)
+    std::unordered_map<int, int> hash_table;
+
+    for (int k = 0; k < numbers.size(); k++)
     {
-        if (numbers[start] + numbers[end] == target)
+        int value = numbers[k];
+        int diff = target - value;
+
+        if(hash_table.count(diff))
         {
-            std::cout << "[" << start << ", " << end << "] positions\n";
-            return;
-        }
-        else if (numbers[start] + numbers[end] < target)
-        {
-            start++;
-        }
-        else
-        {
-            end--;
-        }
+			std::cout << k + 1 << " " << hash_table[diff] << "\n";
+			return;
+		}
+		hash_table[value] = k + 1;
     }
-    std::cout << "IMPOSIBLE" << std::endl;
+    
+    std::cout<< "IMPOSSIBLE" << std::endl;
 }
+
+
 
 
 
 int main()
 {
-    std::vector<int> numbers = {1, 2, 7, 9, 11, 15};
-    // std::vector<int> numbers = {-1, 1, 2, 3, 5};
-    int target = 11;
-    SumOfNumbers(numbers, target);
+    int n, x;
+    std::cin >> n >> x;
+    std::vector<int> numbers;
+
+    for (int k = 0; k < n; k++)
+    {
+        int number;
+        std::cin >> number;
+        numbers.push_back(number);
+    }
+
+    SumOfNumbers(numbers, x);
 
     return 0;
 }
