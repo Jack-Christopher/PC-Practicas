@@ -1,55 +1,60 @@
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 
-std::vector<int> threeNumbers(std::vector<int> numbers, int target) 
+
+void threeNumbers(std::vector<int> numbers, int target) 
 {
-    std::vector<int> result ={-1, -1, -1};
-    int i = 0, j = 1, k = numbers.size() - 1;
-    while ( (i<j) && (j<k))
+    std::unordered_map<int, std::vector<int>> hash_table;
+
+    for (int k = 0; k < numbers.size(); k++)
     {
-        if (numbers[i] + numbers[j] + numbers[k] == target)
+        hash_table[numbers[k]].push_back(k+1);
+    }
+
+    for (int k = 0; k < numbers.size(); k++)
+    {
+        for (int p = 0; p < numbers.size(); p++)
         {
-            result[0] = i;
-            result[1] = j;
-            result[2] = k;
-            return result;
-        }
-        if (numbers[i] + numbers[j] + numbers[k] < target)
-        {
-            j++;
-            if (j == k)
+            if (k != p)
             {
-                i++;
-                j = i + 1;
-            }
-        }
-        else
-        {
-            k--;
-            if (j == k)
-            {
-                i++;
-                j = i + 1;
-            }
+                int value = target - numbers[k] - numbers[p];
+                
+                auto result = hash_table.find(value);
+
+                if (result != hash_table.end())
+                {
+                    for ( int t = 0; t < result->second.size(); t++)
+                    {
+                        if (result->second[t] != k+1 && result->second[t] != p+1)
+                        {
+                            std::cout<< k+1 << " " << p+1 << " " << result->second[t] << std::endl;
+                            return;
+                        }
+                    }
+                    // std::cout<< k << " " << p << " " << value << std::endl;
+                }
+            }           
         }
     }
-    result = {-1, -1, -1};
-    return result;
+    std::cout<< "IMPOSSIBLE" << std::endl;
 }
-
-
 
 int main()
 {
 
-    std::vector<int> numbers = {1, 2, 4, 5, 12};
-    int target = 19;
-    std::vector<int> result = threeNumbers(numbers, target);
-    for (int i = 0; i < result.size(); i++)
+    int n, x;
+    std::cin >> n >> x;
+    std::vector<int> numbers;
+
+    for (int k = 0; k < n; k++)
     {
-        std::cout << result[i] << " ";
+        int number;
+        std::cin >> number;
+        numbers.push_back(number);
     }
 
+    threeNumbers(numbers, x);
 
     return 0;
 }
