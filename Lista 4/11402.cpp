@@ -82,22 +82,22 @@ public:
         
     }
 
-    void print()
-    {
-        for (int i = 0; i < tree.size(); i++)
-            std::cout << tree[i] << " ";
-        std::cout << std::endl;
-    }
-    void print_array()
-    {
-        int i, j, h = std::ceil(log2(n));
-        for(i=0 ; i<=h ; ++i)
-        {
-            for(j=0 ; j<pow(2, i) ; ++j)
-                std::cout<<tree[int(pow(2, i)-1 + j)]<<' ';
-            std::cout<<std::endl;
-        }
-    }
+    // void print()
+    // {
+    //     for (int i = 0; i < tree.size(); i++)
+    //         std::cout << tree[i] << " ";
+    //     std::cout << std::endl;
+    // }
+    // void print_array()
+    // {
+    //     int i, j, h = std::ceil(log2(n));
+    //     for(i=0 ; i<=h ; ++i)
+    //     {
+    //         for(j=0 ; j<pow(2, i) ; ++j)
+    //             std::cout<<tree[int(pow(2, i)-1 + j)]<<' ';
+    //         std::cout<<std::endl;
+    //     }
+    // }
 };
 
 std::vector<bool> fromStringToVector(std::string s)
