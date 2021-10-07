@@ -9,7 +9,6 @@ int main()
         if (n == 0)
             break;
 
-        // BST bst;
         std::multiset<int> ms;
         std::multiset<int>::iterator it;
 
