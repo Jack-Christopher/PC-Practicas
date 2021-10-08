@@ -7,6 +7,11 @@ struct PhotoRecord
     int getTime() { return minuto + hora*60 + dia*24*60; }
 };
 
+bool compare_PhotoRecords(PhotoRecord a, PhotoRecord b)
+{
+    return a.getTime() < b.getTime();
+}
+
 int main() 
 {
     int n;
@@ -35,21 +40,26 @@ int main()
 
         for(auto& pair : PhotoRecordMap)
         {
-            sort(pair.second.begin(), pair.second.end(),[](PhotoRecord a, PhotoRecord b){ return a.getTime() < b.getTime(); });
+            sort(pair.second.begin(), pair.second.end(), compare_PhotoRecords);
+            // pago fijo inicial 2 dolares (200 centavos)
             int total = 200;
 
-            for(int k = 0; k < pair.second.size(); k++)
+            for(int k = 0; k < pair.second.size()-1; k++)
             {
-                if(!pair.second[k].es_exit && k+1 < pair.second.size() && pair.second[k+1].es_exit)
+                // Si el primero es de "enter" y el segundo es "exit"
+                if(!pair.second[k].es_exit && pair.second[k+1].es_exit)
                 {
+                    // distancia absoluta
                     int dist = abs(pair.second[k].lugar - pair.second[k+1].lugar);
                     total += dist*tolls[pair.second[k].hora];
-                    total += 100;
+                    total += 100; // un dolar (100 centavos) adicional por cada viaje
                 }
             }
+            // Si se ha realizado al menos un viaje 
             if(total != 200)
-                std::cout << pair.first << " $" << std::setprecision(2) << std::fixed << total/100.0 << std::endl;
+                std::cout << pair.first << " $" << std::setprecision(2) << std::fixed << total/100.00 << std::endl;
         }
-        if(n) std::cout << std::endl;
+        if(n) 
+            std::cout << "\n";
     }
 }
