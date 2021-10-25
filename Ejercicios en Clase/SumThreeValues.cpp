@@ -53,7 +53,6 @@ int main()
         std::cin >> number;
         numbers.push_back(number);
     }
-
     threeNumbers(numbers, x);
 
     return 0;
