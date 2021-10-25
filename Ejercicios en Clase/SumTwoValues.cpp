@@ -9,15 +9,15 @@ void SumOfNumbers(std::vector<int> numbers, int target)
 
     for (int k = 0; k < numbers.size(); k++)
     {
-        int value = numbers[k];
-        int diff = target - value;
+        // int value = numbers[k];
+        // int diff = target - value;
 
-        if(hash_table.count(diff))
+        if(hash_table.count(target - numbers[k]) > 0)
         {
-			std::cout << k + 1 << " " << hash_table[diff] << "\n";
+			std::cout << k + 1 << " " << hash_table[target - numbers[k]] << "\n";
 			return;
 		}
-		hash_table[value] = k + 1;
+		hash_table[numbers[k]] = k + 1;
     }
     
     std::cout<< "IMPOSSIBLE" << std::endl;
