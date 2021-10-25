@@ -1,6 +1,4 @@
 *.exe
 test.txt
-/.vscode
+.vscode/
 /Otros
-/Concurso 1/.vscode
-/Ejercicios en Clase/.vscode
